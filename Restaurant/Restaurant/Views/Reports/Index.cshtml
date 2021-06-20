@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Report";
+}
+
+<div class="section mt-3">
+    <div class="row mt-5 p-5">
+        <div class="col-md-6 mb-4 mt-5">
+            <a asp-controller="Reports" asp-action="Cancel">
+                <div class="component">
+                    <div class="card bg-primary rounded h-100">
+                        <div class="card-body text-center mt-5 mb-5">
+                            <h1 class="card-title text-white">Canceled Orders</h1>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mt-5">
+            <a asp-controller="Reports" asp-action="Paid">
+                <div class="component">
+                    <div class="card bg-primary rounded">
+                        <div class="card-body text-center mt-5 mb-5">
+                            <h1 class="card-title text-white">Paid Orders</h1>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Restaurant.ViewModels.Restaurants.RestaurantViewModel>
+@{
+    ViewData["Title"] = "All Restaurants";
+}
+
+<h3 class=" mt-3">All Restaurants</h3>
+
+<table class="table table-bordered table-hover font-italic mt-4" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+    <tr class="bg-primary text-white-50">
+        <th class="text-center align-middle">Name</th>
+        <th class="text-center align-middle">Phone Number</th>
+        <th class="text-center align-middle">Address</th>
+        <th class="text-center align-middle">Created On</th>
+        <th class="text-center align-middle">Details</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr class="bg-primary text-white-50">
+        <th class="text-center align-middle">Name</th>
+        <th class="text-center align-middle">Phone Number</th>
+        <th class="text-center align-middle">Address</th>
+        <th class="text-center align-middle">Created On</th>
+        <th class="text-center align-middle">Details</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    @{
+        foreach (var restaurant in Model)
+        {
+            <tr>
+                <td class="text-center align-middle">@restaurant.Name</td>
+                <td class="text-center align-middle">@restaurant.PhoneNumber</td>
+                <td class="text-center align-middle">@restaurant.Address</td>
+                <td class="text-center align-middle">@restaurant.CreatedOn.ToString("dd.MM.yyyy")</td>
+                <td class="text-center align-middle">
+                    <a asp-controller="Restaurants" asp-action="Details" asp-route-restaurantId="@restaurant.Id" class="btn btn-warning w-100">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

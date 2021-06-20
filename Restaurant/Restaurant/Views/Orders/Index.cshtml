@@ -1,0 +1,70 @@
+﻿@model Restaurant.ViewModels.Orders.OrderViewModel
+@{
+    ViewData["Title"] = "Order";
+}
+
+<div class="row mt-3">
+    <h3 class="col-md-4">Order For Table: @Model.TableNumber</h3>
+    <div class="col-md-8 text-right">
+        <a class="btn btn-danger btn-pill text-white" asp-controller="Orders" asp-action="Cancel" asp-route-orderId="@Model.Id">Cancel Order</a>
+        <a class="btn btn-primary btn-pill text-white" asp-controller="Orders" asp-action="DishTypes" asp-route-orderId="@Model.Id">Add Dish</a>
+    </div>
+</div>
+<table class="table table-bordered table-hover font-italic mt-4" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr class="bg-primary text-white-50">
+            <th class="text-center align-middle">Username</th>
+            <th class="text-center align-middle">Quantity</th>
+            <th class="text-center align-middle">AllPrice</th>
+            <th class="text-center align-middle">Pay</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th class="text-center align-middle">@Model.WaiterUsername</th>
+        <th class="text-center align-middle">@Model.AllQuantity</th>
+        <th class="text-center align-middle">@Model.AllPrice лв.</th>
+        <th class="text-center align-middle">
+            <a class="btn btn-primary btn-pill text-white" asp-controller="Orders" asp-action="Pay" asp-route-orderId="@Model.Id">Pay</a>
+        </th>
+    </tr>
+    </tbody>
+</table>
+    <table class="table table-bordered table-hover font-italic mt-4" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr class="bg-primary text-white-50">
+                <th class="text-center align-middle">Name</th>
+                <th class="text-center align-middle">Type</th>
+                <th class="text-center align-middle">Price</th>
+                <th class="text-center align-middle">Remove</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr class="bg-primary text-white-50">
+                <th class="text-center align-middle">Name</th>
+                <th class="text-center align-middle">Type</th>
+                <th class="text-center align-middle">Price</th>
+                <th class="text-center align-middle">Remove</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            @{
+                if (Model.Dishes != null)
+                {
+                    foreach (var dish in Model.Dishes)
+                    {
+                        <tr>
+                            <td class="text-center align-middle">@dish.Name</td>
+                            <td class="text-center align-middle">@dish.DishesType.Name</td>
+                            <td class="text-center align-middle">@dish.Price лв.</td>
+                            <td class="text-center align-middle">
+                                <a class="btn btn-danger w-100" asp-controller="Orders" asp-action="RemoveDishFromOrder" asp-route-dishId="@dish.Id" asp-route-orderId="@Model.Id">
+                                    Remove
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>

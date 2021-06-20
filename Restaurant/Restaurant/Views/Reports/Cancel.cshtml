@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Restaurant.ViewModels.Reports.ReportViewModel>
+@{
+    ViewData["Title"] = "Canceled Orders";
+}
+
+<h3 class=" mt-3">Canceled Orders</h3>
+
+<table class="table table-bordered table-hover font-italic mt-4" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr class="bg-primary text-white-50">
+            <th class="text-center align-middle">Table</th>
+            <th class="text-center align-middle">Username</th>
+            <th class="text-center align-middle">Created On</th>
+            <th class="text-center align-middle">Dishes</th>
+            <th class="text-center align-middle">Total Price</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr class="bg-primary text-white-50">
+            <th class="text-center align-middle">Table</th>
+            <th class="text-center align-middle">Username</th>
+            <th class="text-center align-middle">Created On</th>
+            <th class="text-center align-middle">Dishes</th>
+            <th class="text-center align-middle">Total Price</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @{
+            foreach (var order in Model)
+            {
+                <tr>
+                    <td class="text-center align-middle">@order.TableNumber</td>
+                    <td class="text-center align-middle">@order.Username</td>
+                    <td class="text-center align-middle">@order.CreatedOn.ToString("dd.MM.yyyy")</td>
+                    <td class="text-center align-middle">
+                        @foreach (var dish in order.Dishes)
+                        {
+                            <p>@dish.Name (@dish.DishType) - @dish.Price лв.</p>
+                        }
+                    </td>
+                    <td class="text-center align-middle">@order.Price лв.</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

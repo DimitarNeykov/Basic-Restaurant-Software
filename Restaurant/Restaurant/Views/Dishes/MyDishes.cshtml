@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Restaurant.ViewModels.Dishes.DishViewModel>
+@{
+    ViewData["Title"] = "All Dish Types";
+}
+
+<div class="row mt-3">
+    <h3 class="col-md-6">All Dishes</h3>
+    <div class="col-md-6 text-right">
+        @if (this.User.IsInRole("Manager"))
+        {
+            <a class="btn btn-success btn-pill text-white" asp-controller="Dishes" asp-action="Create">Add Dish</a>
+        }
+    </div>
+</div>
+
+<table class="table table-bordered table-hover font-italic mt-4" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr class="bg-primary text-white-50">
+            <th class="text-center align-middle">Name</th>
+            <th class="text-center align-middle">Type</th>
+            <th class="text-center align-middle">Price</th>
+            <th class="text-center align-middle">Remove</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr class="bg-primary text-white-50">
+            <th class="text-center align-middle">Name</th>
+            <th class="text-center align-middle">Type</th>
+            <th class="text-center align-middle">Price</th>
+            <th class="text-center align-middle">Remove</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                foreach (var dish in Model)
+                {
+                <tr>
+                    <td class="text-center align-middle">@dish.Name</td>
+                    <td class="text-center align-middle">@dish.TypeName</td>
+                    <td class="text-center align-middle">@dish.Price</td>
+                    <td class="text-center align-middle">
+                        <a class="btn btn-danger w-100" asp-controller="Dishes" asp-action="RemoveDish" asp-route-dishId="@dish.Id">
+                            Remove
+                        </a>
+                    </td>
+                </tr>
+                }
+            }
+        }
+    </tbody>
+</table>

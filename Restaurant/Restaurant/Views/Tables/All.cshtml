@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Restaurant.ViewModels.Tables.TableViewModel>
+@{
+    ViewData["Title"] = "All Tables";
+}
+
+<div class="row mt-3">
+    <h3 class="col-md-6">All Tables</h3>
+    <div class="col-md-6 text-right">
+        @if (this.User.IsInRole("Manager"))
+        {
+            <a class="btn btn-success btn-pill text-white" data-toggle="modal" data-target="#exampleModalCenter">Add New Table</a>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Table</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Tables" asp-action="Create" method="post">
+                <div class="modal-body">
+                    <div class="form-group text-center">
+                        <input name="restaurantId" hidden="" value="">
+                        <label class="text-center">Number</label>
+                        <input name="Number" class="form-control is-valid rounded-pill">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="section mt-3">
+    <div class="row">
+        @foreach (var table in Model)
+        {
+            <div class="col-md-3 mb-4 text-center">
+                @if (this.User.IsInRole("Manager"))
+                {
+                    <a class="btn btn-danger btn-pill text-white mb-1" asp-controller="Tables" asp-action="Remove" asp-route-tableId="@table.Id">Remove</a>
+                }
+                <a asp-controller="Orders" asp-action="Index" asp-route-tableId="@table.Id">
+                    <div class="component">
+                        @if (table.CheckForOpenOrder == true)
+                        {
+                            <div class="card bg-danger">
+                                <div class="card-body text-center mt-5 mb-5">
+                                    <h1 class="card-title">@table.Number</h1>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card bg-success">
+                                <div class="card-body text-center mt-5 mb-5">
+                                    <h1 class="card-title">@table.Number</h1>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

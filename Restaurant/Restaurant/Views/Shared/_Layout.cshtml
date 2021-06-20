@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" src="~/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Restaurant</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/demo.css" rel="stylesheet" />
+    <link href="~/css/lazy.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home">Restaurant</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-7" aria-controls="navbarNavDropdown-7"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown-7">
+                    @{
+                        if (this.SignInManager.IsSignedIn(this.User))
+                        {
+                            if (this.User.IsInRole("Administrator"))
+                            {
+                                <ul class="navbar-nav">
+                                    <li class="nav-item mx-2">
+                                        <a class="nav-link" asp-action="Create" asp-controller="Restaurants" role="button">Create Restaurant</a>
+                                    </li>
+                                    <li class="nav-item mx-2">
+                                        <a class="nav-link" asp-action="All" asp-controller="Restaurants" role="button">Restaurants</a>
+                                    </li>
+                                </ul>
+                            }
+                            else if (this.User.IsInRole("Manager"))
+                            {
+                                <ul class="navbar-nav">
+                                    <li class="nav-item mx-2">
+                                        <a class="nav-link" asp-action="Manage" asp-controller="Dishes" role="button">Dishes</a>
+                                    </li>
+                                    <li class="nav-item mx-2">
+                                        <a class="nav-link" asp-action="All" asp-controller="Tables" role="button">Tables</a>
+                                    </li>
+                                    <li class="nav-item mx-2">
+                                        <a class="nav-link" asp-action="Index" asp-controller="Reports" role="button">Reports</a>
+                                    </li>
+                                </ul>
+                            }
+                            else if (this.User.IsInRole("Waiter"))
+                            {
+                                <ul class="navbar-nav">
+                                    <li class="nav-item mx-2">
+                                        <a class="nav-link" asp-action="All" asp-controller="Tables" role="button">Tables</a>
+                                    </li>
+                                </ul>
+                            }
+                        }}
+                    <ul class="navbar-nav ml-auto text-white">
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container-fluid text-center">
+            &copy; 2021 - Restaurant
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

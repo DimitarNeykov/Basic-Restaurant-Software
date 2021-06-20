@@ -1,0 +1,51 @@
+﻿@model Restaurant.ViewModels.Restaurants.RestaurantCreateInputModel
+@{
+    ViewData["Title"] = "Create Restaurant";
+}
+
+<div class="section mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="header mb-3">
+                <h2 class="text-center">Create Restaurant</h2>
+            </div>
+            <form method="post">
+                <div class="component">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="form-group text-center">
+                                <label asp-for="Name"></label>
+                                <input asp-for="Name" class="form-control is-valid rounded-pill">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="form-group text-center">
+                                <label asp-for="Address"></label>
+                                <input asp-for="Address" class="form-control is-valid rounded-pill">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="form-group text-center">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" class="form-control is-valid rounded-pill">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <button type="submit" class="btn btn-success btn-pill ">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

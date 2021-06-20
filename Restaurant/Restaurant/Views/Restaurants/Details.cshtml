@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model Restaurant.ViewModels.Restaurants.RestaurantViewModel
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Restaurant Details";
+}
+
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="component">
+            <div class="">
+                <div class="card-body">
+                    <h4 class="card-title text-center">@Model.Name</h4>
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <div class="form-group text-center">
+                                <label>Address:</label>
+                                <input class="form-control text-center text-white bg-primary rounded-pill" disabled="" value="@Model.Address">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group text-center">
+                                <label>Phone Number:</label>
+                                <input class="form-control text-center text-white bg-primary rounded-pill" disabled="" value="@Model.PhoneNumber">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text text-center">Users</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <a asp-controller="Users" asp-action="Create" asp-route-restaurantId="@Model.Id" class="card btn btn-success rounded-pill">Add User</a>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover font-italic mt-4" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr class="bg-primary text-white-50">
+                                    <th class="text-center align-middle">Username</th>
+                                    <th class="text-center align-middle">Phone</th>
+                                    <th class="text-center align-middle">Email</th>
+                                    <th class="text-center align-middle">Role</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr class="bg-primary text-white-50">
+                                    <th class="text-center align-middle">Username</th>
+                                    <th class="text-center align-middle">Phone</th>
+                                    <th class="text-center align-middle">Email</th>
+                                    <th class="text-center align-middle">Role</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                            @{
+                                if (Model.Users != null)
+                                {
+                                    foreach (var user in Model.Users)
+                                    {
+                                        <tr>
+                                            <td class="text-center align-middle">@user.Username</td>
+                                            <td class="text-center align-middle">@user.PhoneNumber</td>
+                                            <td class="text-center align-middle">@user.Email</td>
+                                            <th class="text-center align-middle">@string.Join(", ", await UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(x => x.Id == user.Id)))</th>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <a asp-controller="Restaurants" asp-action="Edit" asp-route-restaurantId="@Model.Id" class="card btn btn-warning rounded-pill">Edit</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a asp-controller="Restaurants" asp-action="Delete" asp-route-restaurantId="@Model.Id" class="card btn btn-danger rounded-pill">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
